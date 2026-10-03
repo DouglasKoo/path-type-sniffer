@@ -17,3 +17,10 @@ elif kind is PathType.MISSING:
 The library exists because the obvious approach (`os.path.isfile` / `isdir` / `islink`) needs several calls and still leaves broken symlinks and special files (sockets, fifos, devices) in an ambiguous bucket. One `lstat` plus one `stat` (only for symlinks) gives a complete answer in a single call.
 
 The edge to know about: any `OSError` from `lstat` — including `EACCES` on a parent directory — is reported as `MISSING`. If you need to distinguish "does not exist" from "permission denied", call `os.lstat` yourself. The trade-off here is a simpler, never-raising API at the cost of that distinction.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
