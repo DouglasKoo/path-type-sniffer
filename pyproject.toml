@@ -1,6 +1,6 @@
 [project]
 name = "path-type-sniffer"
-version = "0.1.0"
+version = "0.1.1"
 description = "Classifies a path as file, directory, symlink, broken symlink, socket, fifo, or device without raising on missing entries."
 requires-python = ">=3.10"
 dependencies = []
